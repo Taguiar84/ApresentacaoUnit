@@ -14,6 +14,8 @@ namespace UI.Models
 
         public TaskStatus Status { get; set; }
         public Responsavel Responsavel { get; set; }
+
+        public Prioridade Prioridade { get; set; }
     }
 
 
@@ -23,6 +25,14 @@ namespace UI.Models
         Aberta,
         Execucao,
         Finalizada
+    }
+
+    public enum Prioridade
+    {
+        Baixa,
+        Normal,
+        Alta,
+        PraOntem
     }
 
 

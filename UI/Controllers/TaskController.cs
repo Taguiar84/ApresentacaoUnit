@@ -24,6 +24,12 @@ namespace UI.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public ActionResult Edit(Task model)
+        {
+            return RedirectToAction("Index");
+        }
+
 
 
         private Task[] Seed()

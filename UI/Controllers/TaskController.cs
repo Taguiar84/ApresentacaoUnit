@@ -14,15 +14,16 @@ namespace UI.Controllers
 
         public ActionResult Index()
         {
-            ViewBag.Task = Seed();
-            return View();
-        }
-
-        public ActionResult Index2()
-        {
             var model = Seed();
             return View(model);
         }
+
+        public ActionResult Edit(int id)
+        {
+            var model = Seed().Where(it => it.Id == id).First();            
+            return View(model);
+        }
+
 
 
         private Task[] Seed()
@@ -37,6 +38,7 @@ namespace UI.Controllers
 
             itens.Add(new Task()
             {
+                Id = 1,
                 Nome = "Fazer o Kernel"
                 ,
                 Prioridade = Prioridade.Alta
@@ -48,6 +50,7 @@ namespace UI.Controllers
 
             itens.Add(new Task()
             {
+                Id = 2,
                 Nome = "Roubar a interface do SO"
                 ,
                 Prioridade = Prioridade.PraOntem
@@ -59,6 +62,7 @@ namespace UI.Controllers
 
             itens.Add(new Task()
             {
+                Id = 3,
                 Nome = "Forjar o Anel"
                 ,
                 Prioridade = Prioridade.PraOntem
@@ -70,6 +74,7 @@ namespace UI.Controllers
 
             itens.Add(new Task()
             {
+                Id = 4,
                 Nome = "Task 4"
                 ,
                 Prioridade = Prioridade.Baixa
@@ -81,6 +86,7 @@ namespace UI.Controllers
 
             itens.Add(new Task()
             {
+                Id = 5,
                 Nome = "Task 5"
                 ,
                 Prioridade = Prioridade.Normal

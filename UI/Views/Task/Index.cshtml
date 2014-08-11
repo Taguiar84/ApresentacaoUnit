@@ -4,3 +4,28 @@
 
 <h2>Taks - Index</h2>
 
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <td>Nome</td>
+            <td>Prioridade</td>
+            <td>Situação</td>
+            <td>Responsável</td>
+            <td>Ação</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ViewBag.Task)
+        {
+            <tr>
+                <td>@item.Nome</td>
+                <td>@item.Prioridade</td>
+                <td>@item.Status</td>
+                <td>@item.Responsavel.Nome</td>
+                <td></td>
+            </tr>
+        }
+    </tbody>
+</table>
+

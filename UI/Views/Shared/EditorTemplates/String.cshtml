@@ -1,0 +1,21 @@
+﻿@inherits System.Web.Mvc.WebViewPage<System.String>
+@{
+    
+    var css = string.Empty;    
+
+    if (ViewData.ContainsKey("class"))
+    {
+        css = ViewData["class"].ToString();
+    }
+    else
+    {
+        css = "col-md-12";
+    }
+}
+<div class="@css">
+    @Html.LabelFor(model => model, htmlAttributes: new { @class = "control-label" })
+    <div>
+        @Html.TextBoxFor(model => model, new { @class = "form-control" } )
+        @Html.ValidationMessageFor(model => model, "", new { @class = "text-danger" })
+    </div>
+</div>

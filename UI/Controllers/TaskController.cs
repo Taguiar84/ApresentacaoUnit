@@ -30,14 +30,21 @@ namespace UI.Controllers
         [HttpPost]
         public ActionResult Edit(Task model)
         {
-            var entity = Seed().Where(it => it.Id == model.Id).First();
-            entity.DataInicio = model.DataInicio;
-            entity.DataFim = model.DataFim;
-            entity.Nome = model.Nome;
-            entity.Prioridade = model.Prioridade;
-            entity.Responsavel = model.Responsavel;
+            if (ModelState.IsValid)
+            {
+                var entity = Seed().Where(it => it.Id == model.Id).First();
+                entity.DataInicio = model.DataInicio;
+                entity.DataFim = model.DataFim;
+                entity.Nome = model.Nome;
+                entity.Prioridade = model.Prioridade;
+                entity.Responsavel = model.Responsavel;
 
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(model);
+            }
         }
 
 

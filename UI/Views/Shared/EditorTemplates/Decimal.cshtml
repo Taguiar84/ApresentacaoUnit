@@ -1,0 +1,54 @@
+﻿@inherits System.Web.Mvc.WebViewPage<Decimal?>
+@using Avonale.Infrastructure.UI.Web
+@using Avonale.Infrastructure.UI.Web.Helper;
+@functions {
+
+    object ModelValue
+    {
+        get
+        {
+            if (ViewData.TemplateInfo.FormattedModelValue == ViewData.ModelMetadata.Model)
+            {
+                return String.Format(System.Globalization.CultureInfo.CurrentCulture,
+                                     "{0:0.00}", ViewData.ModelMetadata.Model);
+            }
+            return ViewData.TemplateInfo.FormattedModelValue;
+        }
+    }
+    }
+@{
+    var result = Html.ConfigWebViewPage(ViewData);
+    //if (result.Attr["class"] != null)
+    //{
+    //    result.Attr["class"] += " AvonaleCurrency";
+    //}
+    //else
+    //{
+    //    result.Attr["class"] = "AvonaleCurrency";
+    //}
+}
+<div class="@result.CssDivControl">
+    @if(string.IsNullOrEmpty(result.InfoMsg))
+    {
+        <label for="@ViewData.TemplateInfo.HtmlFieldPrefix" class="control-label">
+            @result.Display     
+            @if (ViewData.ModelMetadata.IsRequired && !result.NotRequired)
+            {
+                <span class="required">*</span>                
+            }
+        </label>        
+    }
+    else
+    {
+        <label for="@ViewData.TemplateInfo.HtmlFieldPrefix" class="control-label">
+            @result.Display
+            <i class="@result.InfoIcon popovers" data-placement="@result.InfoPosition" data-trigger="@result.InfoTrigger" data-content="@result.InfoMsg"></i>
+            @if (ViewData.ModelMetadata.IsRequired && !result.NotRequired)
+            {
+               <span class="required">*</span>
+            }
+        </label>
+    }
+    @Html.TextBox("", "", result.Attr)
+    @Html.ValidationMessageFor(model => model)
+</div>

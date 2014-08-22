@@ -1,0 +1,52 @@
+﻿@inherits System.Web.Mvc.WebViewPage<System.Int32?>
+@using Avonale.Infrastructure.UI.Web
+@using Avonale.Infrastructure.UI.Web.Helper;
+@{    
+    var result = Html.ConfigWebViewPage(ViewData);
+
+    //if (result.Attr["class"] != null)
+    //{
+    //    result.Attr["class"] += " AvonaleInt";
+    //}
+    //else
+    //{
+    //    result.Attr["class"] = "AvonaleInt";
+    //}
+}
+<div class="@result.CssDivControl">
+    @if (string.IsNullOrEmpty(result.InfoMsg))
+    {
+        <label for="@ViewData.TemplateInfo.HtmlFieldPrefix" class="control-label">
+            @result.Display
+            @if (ViewData.ModelMetadata.IsRequired && !result.NotRequired)
+            {
+                <span class="required">*</span>                
+            }
+        </label>        
+    }
+    else
+    {
+        <label for="@ViewData.TemplateInfo.HtmlFieldPrefix" class="control-label">
+            @result.Display
+            <i class="@result.InfoIcon popovers" data-placement="@result.InfoPosition" data-trigger="@result.InfoTrigger" data-content="@result.InfoMsg"></i>
+            @if (ViewData.ModelMetadata.IsRequired && !result.NotRequired)
+            {
+                <span class="required">*</span>
+            }
+        </label>
+    }
+    @Html.TextBox("", "", result.Attr)
+    @if (result.Pesquisa)//Colocar button de pesquisa
+    {
+       var pesquisaFunction = "";
+        if (!string.IsNullOrEmpty(result.PesquisaFunction))
+        {
+            pesquisaFunction = string.Format("data-bind=\"click: function(data, event){{ {0} }}\"", result.PesquisaFunction);
+        }
+        var btn_Id = "btn" + ViewData.TemplateInfo.HtmlFieldPrefix.Replace(".", "_");
+        <span id='@btn_Id'class="input-group-addon" @Html.Raw(pesquisaFunction)>
+            <i class="fa fa-search"></i>
+        </span>
+    }
+    @Html.ValidationMessageFor(model => model)
+</div>

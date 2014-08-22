@@ -9,6 +9,9 @@ namespace UI.Controllers
 {
     public class TaskController : Controller
     {
+
+        private static Task[] GetTasks { get; set; }
+
         //
         // GET: /Task/
 
@@ -27,6 +30,13 @@ namespace UI.Controllers
         [HttpPost]
         public ActionResult Edit(Task model)
         {
+            var entity = Seed().Where(it => it.Id == model.Id).First();
+            entity.DataInicio = model.DataInicio;
+            entity.DataFim = model.DataFim;
+            entity.Nome = model.Nome;
+            entity.Prioridade = model.Prioridade;
+            entity.Responsavel = model.Responsavel;
+
             return RedirectToAction("Index");
         }
 
@@ -34,6 +44,9 @@ namespace UI.Controllers
 
         private Task[] Seed()
         {
+            if (GetTasks != null)
+                return GetTasks;
+
             List<Responsavel> reposnsaveis = new List<Responsavel>();
 
             reposnsaveis.Add(new Responsavel() { Nome = "Peter Jackson" });
@@ -51,7 +64,7 @@ namespace UI.Controllers
                 ,
                 Status = TaskStatus.Aberta
                 ,
-                Responsavel = reposnsaveis[2]
+                Responsavel = reposnsaveis[2]                
             });
 
             itens.Add(new Task()
@@ -76,6 +89,7 @@ namespace UI.Controllers
                 Status = TaskStatus.Execucao
                 ,
                 Responsavel = reposnsaveis[0]
+                , DataInicio = DateTime.Today.AddDays(-1)
             });
 
             itens.Add(new Task()
@@ -100,11 +114,14 @@ namespace UI.Controllers
                 Status = TaskStatus.Finalizada
                 ,
                 Responsavel = reposnsaveis[1]
+                ,
+                DataInicio = DateTime.Today
+                , DataFim = DateTime.Today
             });
 
 
-
-            return itens.ToArray();
+            GetTasks = itens.ToArray();
+            return GetTasks;
         }
 
     }

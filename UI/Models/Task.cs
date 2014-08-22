@@ -11,8 +11,8 @@ namespace UI.Models
 
         public string Nome { get; set; }
 
-        public DateTime DataInicio { get; set; }
-        public DateTime DataFim { get; set; }
+        public DateTime? DataInicio { get; set; }
+        public DateTime? DataFim { get; set; }
 
         public TaskStatus Status { get; set; }
         public Responsavel Responsavel { get; set; }
